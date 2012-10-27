@@ -25,7 +25,7 @@
 
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-  [self.slidingViewController anchorTopViewOffScreenTo:ECLeft animations:^{
+	[self.slidingViewController anchorTopViewOffScreenTo:ECLeft animateChange:YES animations:^{
     CGRect frame = self.view.frame;
     frame.origin.x = 0.0f;
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
@@ -39,7 +39,7 @@
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar
 {
-  [self.slidingViewController anchorTopViewTo:ECLeft animations:^{
+  [self.slidingViewController anchorTopViewTo:ECLeft animateChange:YES animations:^{
     CGRect frame = self.view.frame;
     frame.origin.x = self.peekLeftAmount;
     if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
