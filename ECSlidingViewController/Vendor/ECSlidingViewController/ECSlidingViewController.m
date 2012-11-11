@@ -197,6 +197,10 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
   [self adjustLayout];
 }
 
+-(NSUInteger)supportedInterfaceOrientations {
+    return [[self topViewController] supportedInterfaceOrientations];
+}
+
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
   self.topView.layer.shadowPath = nil;
