@@ -406,13 +406,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 - (void)resetTopViewWithAnimations:(void(^)())animations onComplete:(void(^)())complete
 {
   [self topViewHorizontalCenterWillChange:self.resettedCenter];
-    
-    if ([[self topViewController] isKindOfClass:[UINavigationController class]]) {
-        UIViewController *rootController = [[(UINavigationController *)[self topViewController] viewControllers] objectAtIndex:0];
-        [[rootController view] addGestureRecognizer:[self panGesture]];
-    } else {
-        [[self topView] addGestureRecognizer:[self panGesture]];
-    }
+  [self.topView addGestureRecognizer:self.panGesture];
     
   [UIView animateWithDuration:0.25f animations:^{
     if (animations) {
