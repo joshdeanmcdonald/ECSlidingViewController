@@ -117,6 +117,7 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 		_topViewController.view.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.view.layer.bounds].CGPath;
 
 		[self.view addSubview:_topViewController.view];
+		[self adjustLayout];
 	}
 }
 
