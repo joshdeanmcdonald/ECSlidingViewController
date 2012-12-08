@@ -200,11 +200,17 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 }
 
 -(NSUInteger)supportedInterfaceOrientations {
-    return [[self topViewController] supportedInterfaceOrientations];
+  UIViewController *viewController = self.topViewController;
+  if (!viewController) viewController = self.underLeftViewController;
+  if (!viewController) viewController = self.underRightViewController;
+  return [viewController supportedInterfaceOrientations];
 }
 
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {
-    return [[self topViewController] shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
+  UIViewController *viewController = self.topViewController;
+  if (!viewController) viewController = self.underLeftViewController;
+  if (!viewController) viewController = self.underRightViewController;
+  return [viewController shouldAutorotateToInterfaceOrientation:toInterfaceOrientation];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
