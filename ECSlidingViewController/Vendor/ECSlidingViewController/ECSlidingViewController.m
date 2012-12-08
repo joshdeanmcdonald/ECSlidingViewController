@@ -403,12 +403,12 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
   [self resetTopViewWithAnimations:nil onComplete:nil];
 }
 
-- (void)resetTopViewWithAnimations:(void(^)())animations onComplete:(void(^)())complete
+- (void)resetTopViewAnimateChange:(BOOL)an animations:(void(^)())animations onComplete:(void(^)())complete
 {
   [self topViewHorizontalCenterWillChange:self.resettedCenter];
   [self.topView addGestureRecognizer:self.panGesture];
     
-  [UIView animateWithDuration:0.25f animations:^{
+  [UIView animateWithDuration:0.25f*an animations:^{
     if (animations) {
       animations();
     }
