@@ -17,7 +17,7 @@ NSString *const ECSlidingViewTopDidAnchorRight       = @"ECSlidingViewTopDidAnch
 NSString *const ECSlidingViewTopWillReset            = @"ECSlidingViewTopWillReset";
 NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidReset";
 
-@interface ECSlidingViewController()
+@interface ECSlidingViewController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) UIView *topViewSnapshot;
 @property (nonatomic, unsafe_unretained) CGFloat initialTouchPositionX;
@@ -184,7 +184,9 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 	[super viewDidLoad];
 	self.resetTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(resetTopView)];
 	_panGesture          = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(updateTopViewHorizontalCenterWithRecognizer:)];
-	self.resetTapGesture.enabled = NO;
+	_panGesture.delegate = self;
+    
+    self.resetTapGesture.enabled = NO;
 	self.resetStrategy = ECTapping | ECPanning;
 
 	self.topViewSnapshot = [[UIView alloc] initWithFrame:self.topView.bounds];
@@ -684,6 +686,17 @@ NSString *const ECSlidingViewTopDidReset             = @"ECSlidingViewTopDidRese
 	} else {
 		[NSException raise:@"Invalid Width Layout" format:@"underRightWidthLayout must be a valid ECViewWidthLayout"];
 	}
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gesture shouldReceiveTouch:(UITouch *)touch
+{
+    if ([gesture isKindOfClass:[UIPanGestureRecognizer class]]) {
+        UIView *view = touch.view;
+        if (view.isExclusiveTouch || [view isKindOfClass:[UISlider class]] || [view isKindOfClass:[UISwitch class]]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
 @end
